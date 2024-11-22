@@ -1,10 +1,9 @@
 import { updateApp } from '@/duxappReactNative/utils/rn'
 import { Text } from '@tarojs/components'
-import { cloneElement, isValidElement, useEffect, useState } from 'react'
+import { cloneElement, isValidElement } from 'react'
 import { getVersion, getBuildNumber } from 'react-native-device-info'
-import codePush from 'react-native-code-push'
 import { toast } from '@/duxapp/utils/util'
-import { loading } from '@/duxui'
+import { loading } from '@/duxapp'
 
 export const AppUpgrade = ({
   children
@@ -32,18 +31,9 @@ export const AppUpgrade = ({
 }
 
 const AppUpgradeVersion = props => {
-  const [codepushVersion, setCodepushVersion] = useState(false)
-
-  useEffect(() => {
-    codePush.getUpdateMetadata(codePush.UpdateState.RUNNING).then(res => {
-      if (res) {
-        setCodepushVersion(res.label)
-      }
-    })
-  }, [])
 
   return <Text {...props}>
-    {getVersion()} {codepushVersion}({getBuildNumber()})
+    {getVersion()} ({getBuildNumber()})
   </Text>
 }
 
