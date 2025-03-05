@@ -71,6 +71,19 @@ module.exports = {
             useLegacyPackaging true
         }
     }`
+    },
+    // 临时解决m系列模拟器上无法编译的问题
+    'ios/Podfile': {
+      postInstallEnd: `    installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings["ONLY_ACTIVE_ARCH"] = "NO"
+    end
+  end`
+    }
+  },
+  replace: {
+    'android/gradle/wrapper/gradle-wrapper.properties': {
+      distributionUrl: 'https://mirrors.cloud.tencent.com/gradle/gradle-8.8-all.zip'
     }
   },
   android: {
